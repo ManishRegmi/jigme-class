@@ -6,6 +6,7 @@ function App() {
   // const [color, setColor] = useState('red');
   // const [height, setHeight] = useState('500px');
   const [datas, setData] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     iAmLoading();
@@ -15,6 +16,7 @@ function App() {
   const iAmLoading = async () => {
     let result = await axios.get('https://66fcc56ec3a184a84d17ecf3.mockapi.io/vendors-near-me'); //promise (res, reject)
     setData(result.data);
+    setLoading(false)
   }
 
 
@@ -59,7 +61,7 @@ function App() {
   return (
     <div>
       {
-        datas.map((e) => {
+      isLoading ?  <p>Loading......</p> :  datas.map((e) => {
           return <div>
             <img src={e.logo} height={"100px"} width={"100px"} />
             <p>{e.phone}</p>
